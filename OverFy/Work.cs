@@ -81,7 +81,7 @@ namespace OverFy
                     var currentStatus = _spotify.GetStatus();
                     if (currentStatus.Playing)
                     {
-                        RivaTuner.print(currentStatus.Track.TrackResource.Name + " " + currentStatus.Track.ArtistResource + currentStatus.Track.Length);
+                        RivaTuner.print(currentStatus.Track.TrackResource.Name + " " + currentStatus.Track.ArtistResource.Name + currentStatus.Track.Length);
                     }
 
                     Task.Delay(1000, cancellationToken).Wait(cancellationToken);

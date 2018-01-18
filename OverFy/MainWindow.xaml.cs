@@ -21,12 +21,21 @@ namespace OverFy
     public partial class MainWindow : Window
     {
         Work work;
-        public MainWindow(Work _work)
+        public MainWindow(Work _work, AppSettings appSettings)
         {
             InitializeComponent();
 
-            _work = work;
+            work = _work;
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            work.Start();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
+        }
     }
 }

@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace OverFy
@@ -14,10 +9,12 @@ namespace OverFy
     public partial class App : Application
     {
         public Work work;
+        public AppSettings appSettings;
         public bool autoStarted = false;
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
+            appSettings = new AppSettings();
             work = new Work();
 
             var startArg = Environment.GetCommandLineArgs();
@@ -37,10 +34,9 @@ namespace OverFy
 
             if (!autoStarted)
             {
-                MainWindow window = new OverFy.MainWindow(work);
+                MainWindow window = new OverFy.MainWindow(work, appSettings);
                 window.Show();
             }
-
         }
 
         private void Application_Exit(object sender, ExitEventArgs e)

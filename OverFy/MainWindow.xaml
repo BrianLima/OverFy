@@ -13,12 +13,24 @@
         Background="{DynamicResource MaterialDesignPaper}"
         Title="OverFy"
         mc:Ignorable="d"
-        Height="350" Width="525">
+        Closing="Window_Closing"
+        Height="350" Width="526">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="130*"/>
+            <ColumnDefinition Width="130*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50*"/>
-            <RowDefinition Height="269*"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
-        <materialDesign:ColorZone Padding="16" materialDesign:ShadowAssist.ShadowDepth="Depth2" Mode="PrimaryDark" VerticalAlignment="Stretch" />
+        <materialDesign:ColorZone Padding="16" materialDesign:ShadowAssist.ShadowDepth="Depth2" Mode="PrimaryDark" VerticalAlignment="Stretch" Grid.ColumnSpan="2" Margin="0,0,0,0.4" />
+        <Button Content="Start" Click="Button_Click" HorizontalAlignment="Right" Margin="0,0,10,9.8" Grid.Row="2" VerticalAlignment="Bottom" Width="75" Grid.Column="1"/>
+        <Grid Margin="0,0.4" Grid.Row="1" Grid.Column="1">
+            <Label Content="Label" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        </Grid>
+        <DataGrid Margin="10,42.4,10,10.4" Grid.Row="1"/>
+        <Label Content="Song Properties Order:" HorizontalAlignment="Left" Margin="10,10.4,0,0" Grid.Row="1" VerticalAlignment="Top"/>
     </Grid>
 </Window>
