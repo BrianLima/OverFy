@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2020
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OverFy", "OverFy\OverFy.csproj", "{EFA6CFF0-4578-4874-829C-7AF9E99D1690}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EFA6CFF0-4578-4874-829C-7AF9E99D1690}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFA6CFF0-4578-4874-829C-7AF9E99D1690}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFA6CFF0-4578-4874-829C-7AF9E99D1690}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFA6CFF0-4578-4874-829C-7AF9E99D1690}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A12C811C-A171-41FA-862A-35EF385A6FEF}
+	EndGlobalSection
+EndGlobal
