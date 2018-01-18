@@ -9,7 +9,7 @@ namespace OverFy
     public partial class App : Application
     {
         public Work work;
-        public AppSettings appSettings;
+        public static AppSettings appSettings;
         public bool autoStarted = false;
 
         private void Application_Startup(object sender, StartupEventArgs e)

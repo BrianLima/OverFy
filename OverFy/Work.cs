@@ -16,11 +16,15 @@ namespace OverFy
         private CancellationTokenSource _cancellationTokenSource;
         private static SpotifyLocalAPI _spotify;
 
-
-        SpotifyAPI.Local.Models.Track t = new SpotifyAPI.Local.Models.Track();
         bool running = false;
+        bool spotifyHooked = false;
 
         public Work()
+        {
+            HookSpotify();
+        }
+
+        private void HookSpotify()
         {
             _spotify = new SpotifyLocalAPI();
             if (!SpotifyLocalAPI.IsSpotifyRunning())
@@ -31,13 +35,12 @@ namespace OverFy
             if (!_spotify.Connect())
                 return; //We need to call Connect before fetching infos, this will handle Auth stuff
 
-            StatusResponse status = _spotify.GetStatus(); //status contains infos
+            spotifyHooked = true;
         }
 
         public void Start()
         {
             if (_workerThread != null || running) return;
-
 
             _cancellationTokenSource = new CancellationTokenSource();
             _workerThread = new Thread(BackgroundWorker_DoWork)
@@ -47,7 +50,6 @@ namespace OverFy
             };
             _workerThread.Start(_cancellationTokenSource.Token);
             running = true;
-
         }
 
         public void Stop()
@@ -69,6 +71,13 @@ namespace OverFy
             {
                 try
                 {
+                    StringBuilder result = new StringBuilder();
+
+                    if (!spotifyHooked)
+                    {
+                        HookSpotify();
+                    }
+
                     if (!SpotifyLocalAPI.IsSpotifyRunning())
                     {
                         return;
@@ -77,6 +86,8 @@ namespace OverFy
                     {
                         return;
                     }
+
+                    GetSpotifyInfo(result);
 
                     var currentStatus = _spotify.GetStatus();
                     if (currentStatus.Playing)
@@ -94,6 +105,13 @@ namespace OverFy
                 {
 
                 }
+            }
+        }
+
+        private void GetSpotifyInfo(StringBuilder result)
+        {
+            foreach (var item in App.appSettings.PropertiesOrder)
+            {
             }
         }
     }

@@ -69,5 +69,17 @@ namespace OverFy.Properties {
                 this["PropertiesOrder"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool UseNewLine {
+            get {
+                return ((bool)(this["UseNewLine"]));
+            }
+            set {
+                this["UseNewLine"] = value;
+            }
+        }
     }
 }
