@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using SpotifyAPI.Local;
+using SpotifyAPI.Local.Enums;
+using SpotifyAPI.Local.Models;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -11,18 +14,30 @@ namespace OverFy
     {
         private Thread _workerThread;
         private CancellationTokenSource _cancellationTokenSource;
+        private static SpotifyLocalAPI _spotify;
+
+
+        SpotifyAPI.Local.Models.Track t = new SpotifyAPI.Local.Models.Track();
         bool running = false;
 
         public Work()
         {
+            _spotify = new SpotifyLocalAPI();
+            if (!SpotifyLocalAPI.IsSpotifyRunning())
+                return; //Make sure the spotify client is running
+            if (!SpotifyLocalAPI.IsSpotifyWebHelperRunning())
+                return; //Make sure the WebHelper is running
 
+            if (!_spotify.Connect())
+                return; //We need to call Connect before fetching infos, this will handle Auth stuff
+
+            StatusResponse status = _spotify.GetStatus(); //status contains infos
         }
 
         public void Start()
         {
-            if (_workerThread != null) return;
+            if (_workerThread != null || running) return;
 
-            //selectedjoystick = combo_joysticks.SelectedIndex;
 
             _cancellationTokenSource = new CancellationTokenSource();
             _workerThread = new Thread(BackgroundWorker_DoWork)
@@ -37,7 +52,7 @@ namespace OverFy
 
         public void Stop()
         {
-            if (_workerThread == null) return;
+            if (_workerThread == null || !running) return;
 
             _cancellationTokenSource.Cancel();
             _cancellationTokenSource = null;
@@ -54,9 +69,22 @@ namespace OverFy
             {
                 try
                 {
-                    RivaTuner.print("Writing on rivatuner is ease xdxdxdxdxd");
-                    Task.Delay(1000, cancellationToken).Wait(cancellationToken); //60 FPS
+                    if (!SpotifyLocalAPI.IsSpotifyRunning())
+                    {
+                        return;
+                    }
+                    if (!SpotifyLocalAPI.IsSpotifyWebHelperRunning())
+                    {
+                        return;
+                    }
 
+                    var currentStatus = _spotify.GetStatus();
+                    if (currentStatus.Playing)
+                    {
+                        RivaTuner.print(currentStatus.Track.TrackResource.Name + " " + currentStatus.Track.ArtistResource + currentStatus.Track.Length);
+                    }
+
+                    Task.Delay(1000, cancellationToken).Wait(cancellationToken);
                 }
                 catch (OperationCanceledException)
                 {

@@ -13,12 +13,33 @@ namespace OverFy
     /// </summary>
     public partial class App : Application
     {
-        Work work;
+        public Work work;
+        public bool autoStarted = false;
+
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-             work = new Work();
+            work = new Work();
 
-            work.Start();
+            var startArg = Environment.GetCommandLineArgs();
+
+            if (startArg != null)
+            {
+                foreach (var arg in startArg)
+                {
+                    if (arg.Contains("autostart"))
+                    {
+                        autoStarted = true;
+                        work.Start();
+                        break;
+                    }
+                }
+            }
+
+            if (!autoStarted)
+            {
+                MainWindow window = new OverFy.MainWindow(work);
+                window.Show();
+            }
 
         }
 
@@ -26,5 +47,6 @@ namespace OverFy
         {
             work.Stop();
         }
+
     }
 }

@@ -20,13 +20,13 @@ namespace OverFy
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        Work work;
+        public MainWindow(Work _work)
         {
             InitializeComponent();
 
-            Work work = new Work();
-
-            work.Start();
+            _work = work;
         }
+
     }
 }
