@@ -13,5 +13,18 @@ namespace OverFy
     /// </summary>
     public partial class App : Application
     {
+        Work work;
+        private void Application_Startup(object sender, StartupEventArgs e)
+        {
+             work = new Work();
+
+            work.Start();
+
+        }
+
+        private void Application_Exit(object sender, ExitEventArgs e)
+        {
+            work.Stop();
+        }
     }
 }

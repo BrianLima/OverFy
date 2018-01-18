@@ -23,6 +23,10 @@ namespace OverFy
         public MainWindow()
         {
             InitializeComponent();
+
+            Work work = new Work();
+
+            work.Start();
         }
     }
 }
