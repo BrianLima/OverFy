@@ -8,14 +8,14 @@ namespace OverFy
     /// </summary>
     public partial class App : Application
     {
-        public Work work;
+        public SpotifyWorker work;
         public static AppSettings appSettings;
         public bool autoStarted = false;
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             appSettings = new AppSettings();
-            work = new Work();
+            work = new SpotifyWorker();
 
             var startArg = Environment.GetCommandLineArgs();
 

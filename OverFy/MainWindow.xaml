@@ -14,7 +14,7 @@
         Title="OverFy"
         mc:Ignorable="d"
         Closing="Window_Closing"
-        Height="350" Width="526">
+        Height="400" Width="526">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="130*"/>
@@ -23,10 +23,10 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="55.2"/>
         </Grid.RowDefinitions>
-        <materialDesign:ColorZone Padding="16" materialDesign:ShadowAssist.ShadowDepth="Depth2" Mode="PrimaryDark" VerticalAlignment="Stretch" Grid.ColumnSpan="2" Margin="0,0,0,0.4" />
-        <DataGrid x:Name="gridSongProperties" Margin="10,10.4,10,10.2" Grid.Row="1" AutoGenerateColumns="False" Grid.ColumnSpan="2">
+        <materialDesign:ColorZone Padding="16" materialDesign:ShadowAssist.ShadowDepth="Depth2" Mode="PrimaryDark" VerticalAlignment="Stretch" Grid.ColumnSpan="2" Margin="0,0,0,0.6" />
+        <DataGrid x:Name="gridSongProperties" Margin="10,10.4,10,10.6" Grid.Row="1" AutoGenerateColumns="False" Grid.ColumnSpan="2">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Property Order" IsReadOnly="True" Binding="{Binding Path=.}" />
             </DataGrid.Columns>
@@ -37,19 +37,20 @@
             <materialDesign:PackIcon Kind="InformationOutline" Height="24" Width="24" />
         </Button>
         <Button Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-            Margin="0,221.4,210,0" HorizontalAlignment="Right"
-            ToolTip="Move selected property down" VerticalAlignment="Top" Click="Button_MoveDown_Click" Grid.Row="1" Grid.RowSpan="2">
+            Margin="10,0,0,9.8" HorizontalAlignment="Left"
+            ToolTip="Move selected property down" VerticalAlignment="Bottom" Click="Button_MoveDown_Click" Grid.Row="2">
             <materialDesign:PackIcon Kind="ArrowDown" Height="24" Width="24" />
         </Button>
         <Button Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-            Margin="0,221.4,165,0" HorizontalAlignment="Right"
-            ToolTip="Move selected property up" VerticalAlignment="Top" Click="Button_MoveUp_Click" Grid.Row="1" Grid.RowSpan="2">
+            Margin="55,0,0,9.8" HorizontalAlignment="Left"
+            ToolTip="Move selected property up" VerticalAlignment="Bottom" Click="Button_MoveUp_Click" Grid.Row="2">
             <materialDesign:PackIcon Kind="ArrowUp" Height="24" Width="24" />
         </Button>
         <Button Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-            Margin="0,221.4,10,0" HorizontalAlignment="Right"
-            ToolTip="Add property" VerticalAlignment="Top" Click="Button_Add_Click" Grid.Row="1" Grid.RowSpan="2">
+            Margin="0,0,10,9.8" HorizontalAlignment="Right"
+            ToolTip="Add property" VerticalAlignment="Bottom" Click="Button_Add_Click" Grid.Row="2" Grid.Column="1">
             <materialDesign:PackIcon Kind="Plus" Height="24" Width="24" />
         </Button>
+        <materialDesign:DialogHost x:Name="dialogHost" CloseOnClickAway="True" Grid.ColumnSpan="2" Margin="10,10,10,10.4" Grid.RowSpan="3"/>
     </Grid>
 </Window>

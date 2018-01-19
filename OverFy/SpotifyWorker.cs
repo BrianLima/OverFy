@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace OverFy
 {
-    public class Work
+    public class SpotifyWorker
     {
         private Thread _workerThread;
         private CancellationTokenSource _cancellationTokenSource;
@@ -19,7 +19,7 @@ namespace OverFy
         bool running = false;
         bool spotifyHooked = false;
 
-        public Work()
+        public SpotifyWorker()
         {
             HookSpotify();
         }
@@ -115,19 +115,22 @@ namespace OverFy
             {
                 switch (item)
                 {
-                    case "Album":
+                    case "Song Name":
+                        result.Append(currentStatus.Track.TrackResource.Name);
+                        break;
+                    case "Artist Name":
+                        result.Append(currentStatus.Track.ArtistResource.Name);
+                        break;
+                    case "Song Running Time":
+                        TimeSpan runningTime = TimeSpan.Parse(currentStatus.PlayingPosition.ToString());
+                        TimeSpan totalTime = TimeSpan.Parse(currentStatus.Track.Length.ToString());
+                        result.Append(runningTime.ToString("mm:ss") + "/" +totalTime.ToString("mm:ss"));
+                        break;
+                    case "Album Name":
+                        result.Append(currentStatus.Track.AlbumResource.Name);
+                        break;
+                    case "Custom Property":
                         result.Append(item);
-                        break;
-                    case "Artist":
-                        result.Append(item);
-                        break;
-                    case "SongTime":
-                        break;
-                    case "Space":
-                        result.Append(" ");
-                        break;
-                    case ":":
-                        result.Append(":");
                         break;
                     case "Label":
                         result.Append("Song: ");
@@ -135,9 +138,10 @@ namespace OverFy
                     default:
                         break;
                 }
-                if (App.appSettings.UseNewLine)
+
+                if (result.ToString() != String.Empty)
                 {
-                    result.AppendLine();
+                    result.Append(", ");
                 }
             }
         }

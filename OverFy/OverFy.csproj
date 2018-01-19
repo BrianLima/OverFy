@@ -70,9 +70,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddPropertyView.xaml.cs">
+      <DependentUpon>AddPropertyView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AppSettings.cs" />
     <Compile Include="RivaTuner.cs" />
-    <Compile Include="Work.cs" />
+    <Compile Include="SpotifyWorker.cs" />
+    <Page Include="AddPropertyView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

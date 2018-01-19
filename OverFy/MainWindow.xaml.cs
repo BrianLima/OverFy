@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MaterialDesignThemes.Wpf;
+using System;
 using System.Collections.ObjectModel;
 using System.Windows;
 
@@ -9,10 +10,10 @@ namespace OverFy
     /// </summary>
     public partial class MainWindow : Window
     {
-        Work work;
+        SpotifyWorker work;
         ObservableCollection<String> listProperties;
 
-        public MainWindow(Work _work, AppSettings appSettings)
+        public MainWindow(SpotifyWorker _work, AppSettings appSettings)
         {
             InitializeComponent();
 
@@ -37,9 +38,12 @@ namespace OverFy
 
         }
 
-        private void Button_Add_Click(object sender, RoutedEventArgs e)
+        private async void Button_Add_Click(object sender, RoutedEventArgs e)
         {
-            listProperties.Add(DateTime.Now.Millisecond.ToString());
+            var view = new AddPropertyView();
+            string newProperty = (string)await DialogHost.Show(view);
+
+            listProperties.Insert(0, newProperty);
 
             CopyProperties();
         }
