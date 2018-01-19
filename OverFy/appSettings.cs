@@ -15,6 +15,11 @@ namespace OverFy
             this._show_system_time = Properties.Settings.Default.ShowSystemTime;
             this._properties_order = Properties.Settings.Default.PropertiesOrder;
             this._use_new_line = Properties.Settings.Default.UseNewLine;
+
+            if (this._properties_order == null)
+            {
+                _properties_order = new StringCollection();
+            }
         }
 
         public void Save()

@@ -71,7 +71,6 @@ namespace OverFy
             {
                 try
                 {
-                    StringBuilder result = new StringBuilder();
 
                     if (!spotifyHooked)
                     {
@@ -87,9 +86,11 @@ namespace OverFy
                         return;
                     }
 
-                    GetSpotifyInfo(result);
-
                     var currentStatus = _spotify.GetStatus();
+                    StringBuilder result = new StringBuilder();
+
+                    GetSpotifyInfo(result, currentStatus);
+
                     if (currentStatus.Playing)
                     {
                         RivaTuner.print(currentStatus.Track.TrackResource.Name + " " + currentStatus.Track.ArtistResource.Name + currentStatus.Track.Length);
@@ -108,10 +109,36 @@ namespace OverFy
             }
         }
 
-        private void GetSpotifyInfo(StringBuilder result)
+        private void GetSpotifyInfo(StringBuilder result, StatusResponse currentStatus)
         {
             foreach (var item in App.appSettings.PropertiesOrder)
             {
+                switch (item)
+                {
+                    case "Album":
+                        result.Append(item);
+                        break;
+                    case "Artist":
+                        result.Append(item);
+                        break;
+                    case "SongTime":
+                        break;
+                    case "Space":
+                        result.Append(" ");
+                        break;
+                    case ":":
+                        result.Append(":");
+                        break;
+                    case "Label":
+                        result.Append("Song: ");
+                        break;
+                    default:
+                        break;
+                }
+                if (App.appSettings.UseNewLine)
+                {
+                    result.AppendLine();
+                }
             }
         }
     }

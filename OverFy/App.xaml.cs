@@ -42,7 +42,7 @@ namespace OverFy
         private void Application_Exit(object sender, ExitEventArgs e)
         {
             work.Stop();
+            appSettings.Save();
         }
-
     }
 }

@@ -26,11 +26,30 @@
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <materialDesign:ColorZone Padding="16" materialDesign:ShadowAssist.ShadowDepth="Depth2" Mode="PrimaryDark" VerticalAlignment="Stretch" Grid.ColumnSpan="2" Margin="0,0,0,0.4" />
-        <Button Content="Start" Click="Button_Click" HorizontalAlignment="Right" Margin="0,0,10,9.8" Grid.Row="2" VerticalAlignment="Bottom" Width="75" Grid.Column="1"/>
-        <Grid Margin="0,0.4" Grid.Row="1" Grid.Column="1">
-            <Label Content="Label" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        </Grid>
-        <DataGrid Margin="10,42.4,10,10.4" Grid.Row="1"/>
-        <Label Content="Song Properties Order:" HorizontalAlignment="Left" Margin="10,10.4,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <DataGrid x:Name="gridSongProperties" Margin="10,10.4,10,10.2" Grid.Row="1" AutoGenerateColumns="False" Grid.ColumnSpan="2">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Property Order" IsReadOnly="True" Binding="{Binding Path=.}" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                Margin="0,5,10,0" HorizontalAlignment="Right"
+                ToolTip="Settings/About" VerticalAlignment="Top" Click="Button_ShowSettings_Click" Grid.Column="1">
+            <materialDesign:PackIcon Kind="InformationOutline" Height="24" Width="24" />
+        </Button>
+        <Button Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+            Margin="0,221.4,210,0" HorizontalAlignment="Right"
+            ToolTip="Move selected property down" VerticalAlignment="Top" Click="Button_MoveDown_Click" Grid.Row="1" Grid.RowSpan="2">
+            <materialDesign:PackIcon Kind="ArrowDown" Height="24" Width="24" />
+        </Button>
+        <Button Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+            Margin="0,221.4,165,0" HorizontalAlignment="Right"
+            ToolTip="Move selected property up" VerticalAlignment="Top" Click="Button_MoveUp_Click" Grid.Row="1" Grid.RowSpan="2">
+            <materialDesign:PackIcon Kind="ArrowUp" Height="24" Width="24" />
+        </Button>
+        <Button Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+            Margin="0,221.4,10,0" HorizontalAlignment="Right"
+            ToolTip="Add property" VerticalAlignment="Top" Click="Button_Add_Click" Grid.Row="1" Grid.RowSpan="2">
+            <materialDesign:PackIcon Kind="Plus" Height="24" Width="24" />
+        </Button>
     </Grid>
 </Window>
