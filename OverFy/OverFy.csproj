@@ -97,6 +97,9 @@
     <Compile Include="AppSettings.cs" />
     <Compile Include="RivaTuner.cs" />
     <Compile Include="SpotifyWorker.cs" />
+    <Compile Include="TrayIcon.xaml.cs">
+      <DependentUpon>TrayIcon.xaml</DependentUpon>
+    </Compile>
     <Page Include="AboutWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -117,6 +120,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="TrayIcon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

@@ -34,9 +34,13 @@ namespace OverFy
 
             work.Start();
 
+            MainWindow window = new OverFy.MainWindow(work, appSettings);
+
+            TrayIcon icon = new TrayIcon(window);
+            //icon.Show();
+
             if (!autoStarted)
             {
-                MainWindow window = new OverFy.MainWindow(work, appSettings);
                 window.Show();
             }
         }
