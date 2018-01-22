@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.IO;
 using System.Runtime.InteropServices;
 
 namespace OverFy
@@ -31,6 +33,11 @@ namespace OverFy
 
         static RivaTuner()
         {
+            if (!IsRivaRunning())
+            {
+                RunRiva();
+            }
+
             string path;
 
             if (IntPtr.Size == 4)
@@ -46,6 +53,32 @@ namespace OverFy
                     throw new DllNotFoundException("Unable to find the native rivatuner library: " + path);
 
                 unloader = new LibraryUnloader(handle);
+            }
+        }
+
+        public static bool IsRivaRunning()
+        {
+            Process[] pname = Process.GetProcessesByName("RTSS");
+            if (pname.Length == 0)
+                return false;
+            else
+                return true;
+        }
+
+        public static void RunRiva()
+        {
+            FileInfo f = new FileInfo(@"C:\Program Files (x86)\RivaTuner Statistics Server\RTSS.exe");
+            if (f.Exists)
+            {
+                try
+                {
+                    Process.Start(f.FullName);
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
             }
         }
 
