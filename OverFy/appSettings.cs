@@ -20,6 +20,10 @@ namespace OverFy
             {
                 _properties_order = new StringCollection();
             }
+
+            //For some reason, if a null string is added to the list, the datatable will fail to bind values
+            //It's ugly but fixes it
+            _properties_order.Remove(null);
         }
 
         public void Save()
@@ -35,7 +39,7 @@ namespace OverFy
                     Properties.Settings.Default.PropertiesOrder = _properties_order;
                     break;
                 case "ShowSystemTime":
-                     break;
+                    break;
                 case "TimeFormat":
                     Properties.Settings.Default.TimeFormat = _time_format;
                     break;

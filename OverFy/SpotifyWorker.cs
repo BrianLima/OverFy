@@ -54,6 +54,8 @@ namespace OverFy
 
         public void Stop()
         {
+            ClearScreen();
+
             if (_workerThread == null || !running) return;
 
             _cancellationTokenSource.Cancel();
@@ -71,30 +73,15 @@ namespace OverFy
             {
                 try
                 {
-
                     if (!spotifyHooked)
                     {
                         HookSpotify();
                     }
 
-                    if (!SpotifyLocalAPI.IsSpotifyRunning())
-                    {
-                        return;
-                    }
-                    if (!SpotifyLocalAPI.IsSpotifyWebHelperRunning())
-                    {
-                        return;
-                    }
-
                     var currentStatus = _spotify.GetStatus();
-                    StringBuilder result = new StringBuilder();
+                    StringBuilder result = GetSpotifyInfo(currentStatus);
 
-                    GetSpotifyInfo(result, currentStatus);
-
-                    if (currentStatus.Playing)
-                    {
-                        RivaTuner.print(currentStatus.Track.TrackResource.Name + " " + currentStatus.Track.ArtistResource.Name + currentStatus.Track.Length);
-                    }
+                    RivaTuner.print(result.ToString());
 
                     Task.Delay(1000, cancellationToken).Wait(cancellationToken);
                 }
@@ -104,46 +91,91 @@ namespace OverFy
                 }
                 catch
                 {
-
                 }
             }
         }
 
-        private void GetSpotifyInfo(StringBuilder result, StatusResponse currentStatus)
+        /// <summary>
+        /// Writes a empty string to the screen for cleaning rivatuner of junk because it doesn't update if the applicatin suddenly stops
+        /// </summary>
+        public static void ClearScreen()
         {
-            foreach (var item in App.appSettings.PropertiesOrder)
-            {
-                switch (item)
-                {
-                    case "Song Name":
-                        result.Append(currentStatus.Track.TrackResource.Name);
-                        break;
-                    case "Artist Name":
-                        result.Append(currentStatus.Track.ArtistResource.Name);
-                        break;
-                    case "Song Running Time":
-                        TimeSpan runningTime = TimeSpan.Parse(currentStatus.PlayingPosition.ToString());
-                        TimeSpan totalTime = TimeSpan.Parse(currentStatus.Track.Length.ToString());
-                        result.Append(runningTime.ToString("mm:ss") + "/" +totalTime.ToString("mm:ss"));
-                        break;
-                    case "Album Name":
-                        result.Append(currentStatus.Track.AlbumResource.Name);
-                        break;
-                    case "Custom Property":
-                        result.Append(item);
-                        break;
-                    case "Label":
-                        result.Append("Song: ");
-                        break;
-                    default:
-                        break;
-                }
+            RivaTuner.print(String.Empty);
+        }
 
-                if (result.ToString() != String.Empty)
+        private StringBuilder GetSpotifyInfo(StatusResponse currentStatus)
+        {
+            StringBuilder result = new StringBuilder();
+
+            string lastItem = String.Empty;
+
+            bool skip = false;
+
+            if (!SpotifyLocalAPI.IsSpotifyRunning())
+            {
+                skip = true;
+            }
+            if (!SpotifyLocalAPI.IsSpotifyWebHelperRunning())
+            {
+                skip = true;
+            }
+
+            for (int i = App.appSettings.PropertiesOrder.Count - 1; i > 0; i--)
+            {
+                if (App.appSettings.PropertiesOrder[i] != "System Time")
                 {
-                    result.Append(", ");
+                    lastItem = App.appSettings.PropertiesOrder[i];
+                    break;
                 }
             }
+
+            if (!skip)
+            {
+                foreach (var item in App.appSettings.PropertiesOrder)
+                {
+                    switch (item)
+                    {
+                        case "System Time":
+                            break;
+                        case "Song Name":
+                            result.Append(currentStatus.Track.TrackResource.Name);
+                            break;
+                        case "Artist Name":
+                            result.Append(currentStatus.Track.ArtistResource.Name);
+                            break;
+                        case "Song Running Time":
+                            TimeSpan runningTime = TimeSpan.FromSeconds(currentStatus.PlayingPosition);
+                            TimeSpan totalTime = TimeSpan.FromSeconds(currentStatus.Track.Length);
+                            result.Append(runningTime.ToString(@"mm\:ss") + "/" + totalTime.ToString(@"mm\:ss"));
+                            break;
+                        case "Album Name":
+                            result.Append(currentStatus.Track.AlbumResource.Name);
+                            break;
+                        case "Label":
+                            result.Append("Now Playing: ");
+                            break;
+                        default:
+                            result.Append(item);
+                            break;
+                    }
+
+                    if (result.ToString() != String.Empty &&
+                        item != "Label" &&
+                        item != lastItem &&
+                        item != "System Time")
+                    {
+                        result.Append(", ");
+                    }
+                }
+            }
+
+            if (App.appSettings.PropertiesOrder.Contains("System Time"))
+            {
+                result.AppendLine();
+                result.Append(DateTime.Now.ToString("HH:mm"));
+            }
+
+            return result;
         }
     }
 }

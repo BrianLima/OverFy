@@ -2,6 +2,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace OverFy
 {
@@ -41,9 +42,15 @@ namespace OverFy
         private async void Button_Add_Click(object sender, RoutedEventArgs e)
         {
             var view = new AddPropertyView();
-            string newProperty = (string)await DialogHost.Show(view);
 
-            listProperties.Insert(0, newProperty);
+            var response = await DialogHost.Show(view);
+
+            if (response == null)
+            {
+                return;
+            }
+
+            listProperties.Insert(0, response.ToString());
 
             CopyProperties();
         }
@@ -51,6 +58,12 @@ namespace OverFy
         private void Button_MoveDown_Click(object sender, RoutedEventArgs e)
         {
             int index = gridSongProperties.SelectedIndex;
+
+            if (index >= gridSongProperties.Items.Count -1 || index < 0)
+            {
+                return;
+            }
+
             var selectedItem = listProperties[index].ToString();
 
             listProperties.Insert(index + 2, selectedItem);
@@ -66,11 +79,18 @@ namespace OverFy
             {
                 App.appSettings.PropertiesOrder.Add(item);
             }
+
+            App.appSettings.Save();
         }
 
         private void Button_MoveUp_Click(object sender, RoutedEventArgs e)
         {
             int index = gridSongProperties.SelectedIndex;
+
+            if (index  <= 0)
+            {
+                return;
+            }
             var selectedItem = listProperties[index].ToString();
 
             listProperties.Insert(index - 1, selectedItem);
@@ -82,6 +102,20 @@ namespace OverFy
         private void Button_ShowSettings_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void MenuItem_Delete_Click(object sender, RoutedEventArgs e)
+        {
+            int index = gridSongProperties.SelectedIndex;
+
+            if (index < 0)
+            {
+                return;
+            }
+
+            listProperties.RemoveAt(index);
+
+            CopyProperties();
         }
     }
 }

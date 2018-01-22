@@ -26,11 +26,13 @@ namespace OverFy
                     if (arg.Contains("autostart"))
                     {
                         autoStarted = true;
-                        work.Start();
+
                         break;
                     }
                 }
             }
+
+            work.Start();
 
             if (!autoStarted)
             {
@@ -41,6 +43,7 @@ namespace OverFy
 
         private void Application_Exit(object sender, ExitEventArgs e)
         {
+            SpotifyWorker.ClearScreen();
             work.Stop();
             appSettings.Save();
         }

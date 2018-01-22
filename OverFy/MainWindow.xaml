@@ -30,6 +30,11 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Property Order" IsReadOnly="True" Binding="{Binding Path=.}" />
             </DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Delete" Click="MenuItem_Delete_Click"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
         </DataGrid>
         <Button Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                 Margin="0,5,10,0" HorizontalAlignment="Right"
