@@ -7,6 +7,7 @@ using SpotifyAPI.Local.Enums;
 using SpotifyAPI.Local.Models;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Globalization;
 
 namespace OverFy
 {
@@ -138,10 +139,10 @@ namespace OverFy
                         case "System Time":
                             break;
                         case "Song Name":
-                            result.Append(currentStatus.Track.TrackResource.Name);
+                            result.Append(NormalizeString(currentStatus.Track.TrackResource.Name)); //It is needed to normalize strings because some like ç can break rivatuner
                             break;
                         case "Artist Name":
-                            result.Append(currentStatus.Track.ArtistResource.Name);
+                            result.Append(NormalizeString(currentStatus.Track.ArtistResource.Name));
                             break;
                         case "Song Running Time":
                             TimeSpan runningTime = TimeSpan.FromSeconds(currentStatus.PlayingPosition);
@@ -149,7 +150,7 @@ namespace OverFy
                             result.Append(runningTime.ToString(@"mm\:ss") + "/" + totalTime.ToString(@"mm\:ss"));
                             break;
                         case "Album Name":
-                            result.Append(currentStatus.Track.AlbumResource.Name);
+                            result.Append(NormalizeString(currentStatus.Track.AlbumResource.Name));
                             break;
                         case "Label":
                             result.Append("Now Playing: ");
@@ -176,6 +177,18 @@ namespace OverFy
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Removes Special characters from a string
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        private string NormalizeString(string input)
+        {
+            var decomposed = input.Normalize(NormalizationForm.FormD);
+            var filtered = decomposed.Where(c => char.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark);
+            return new String(filtered.ToArray());
         }
     }
 }
