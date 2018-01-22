@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Threading;
 
 namespace OverFy
 {
@@ -73,6 +74,7 @@ namespace OverFy
                 try
                 {
                     Process.Start(f.FullName);
+                    Thread.Sleep(2000);
                 }
                 catch (Exception)
                 {

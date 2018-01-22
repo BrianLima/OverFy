@@ -101,7 +101,8 @@ namespace OverFy
 
         private void Button_ShowSettings_Click(object sender, RoutedEventArgs e)
         {
-
+            AboutWindow window = new AboutWindow();
+            window.ShowDialog();
         }
 
         private void MenuItem_Delete_Click(object sender, RoutedEventArgs e)
