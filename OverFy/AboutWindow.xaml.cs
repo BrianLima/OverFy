@@ -1,4 +1,5 @@
-﻿using IWshRuntimeLibrary;
+﻿using Microsoft.Win32.TaskScheduler;
+using IWshRuntimeLibrary;
 using System;
 using System.Windows;
 using System.Text.RegularExpressions;
@@ -13,16 +14,12 @@ namespace OverFy
     public partial class AboutWindow : Window
     {
         FileInfo localFile = new FileInfo(AppDomain.CurrentDomain.BaseDirectory + "\\" + "OverFy" + ".exe");
-        FileInfo shortcutFile = new FileInfo(Environment.GetFolderPath(Environment.SpecialFolder.Startup) + @"\OverFy.lnk");
 
         public AboutWindow()
         {
             InitializeComponent();
 
-            if (shortcutFile.Exists)
-            {
-                autostart_toggle.IsChecked = true;
-            }
+            autostart_toggle.DataContext = App.appSettings.AutoStart;
         }
 
         private void Chip_Click(object sender, RoutedEventArgs e)
@@ -47,26 +44,29 @@ namespace OverFy
 
         private void SetAutoStart()
         {
-            try
+            //Administrator rights are only needed because RivaTuner it self requires administrator rights to be run.
+            //By using a task, when autorunning the app the first time on user logon, we can check if riva itself
+            //was autostarted too, and if not, force it, and this is not possible by simply using a shortcut on the startup folder
+            using (TaskService ts = new TaskService())
             {
-                WshShell shell = new WshShell();
-                WshShortcut shortcut = (WshShortcut)shell.CreateShortcut(shortcutFile.FullName);
-                shortcut.TargetPath = localFile.FullName;
-                shortcut.IconLocation = localFile.FullName + ",0";
-                shortcut.WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory;
-                shortcut.Arguments = "autostart";
-                shortcut.Save();
-            }
-            catch (Exception e)
-            {
-                throw new Exception("Error setting to auto start" + Environment.NewLine + e.Message);
-            }
+                TaskDefinition td = ts.NewTask();
+                td.RegistrationInfo.Author = "Briano";
+                td.RegistrationInfo.Description = "OverFy Auto Run on Windows Startup";
+                td.Principal.RunLevel = TaskRunLevel.Highest;
+                td.Principal.LogonType = TaskLogonType.InteractiveToken;
+                td.Triggers.Add(new LogonTrigger() { });
 
+                td.Actions.Add(new ExecAction(localFile.FullName, "autostart" ,null));
+
+                ts.RootFolder.RegisterTaskDefinition(@"OverFy", td);
+
+                App.appSettings.AutoStart = true;
+            }
         }
 
         private void autostart_toggle_Checked(object sender, RoutedEventArgs e)
         {
-            if (!shortcutFile.Exists)
+            if (!App.appSettings.AutoStart)
             {
                 SetAutoStart();
             }
@@ -74,9 +74,10 @@ namespace OverFy
 
         private void autostart_toggle_Unchecked(object sender, RoutedEventArgs e)
         {
-            if (shortcutFile.Exists)
+            using (TaskService ts = new TaskService())
             {
-                localFile.Delete();
+                //Remove the auto start task
+                ts.RootFolder.DeleteTask("OverFy", false);
             }
         }
 

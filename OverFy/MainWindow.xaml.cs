@@ -36,7 +36,8 @@ namespace OverFy
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-
+            e.Cancel = true;
+            this.Hide();
         }
 
         private async void Button_Add_Click(object sender, RoutedEventArgs e)

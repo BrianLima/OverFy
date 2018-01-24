@@ -172,7 +172,11 @@ namespace OverFy
 
             if (App.appSettings.PropertiesOrder.Contains("System Time"))
             {
-                result.AppendLine();
+                if (!String.IsNullOrEmpty(result.ToString()))
+                {
+                    result.AppendLine();
+                }
+
                 result.Append(DateTime.Now.ToString("HH:mm"));
             }
 
