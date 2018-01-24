@@ -14,7 +14,7 @@
         Title="OverFy"
         mc:Ignorable="d"
         Closing="Window_Closing"
-        Height="400" Width="526">
+        Height="400" Width="500">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="130*"/>
@@ -28,7 +28,7 @@
         <materialDesign:ColorZone Padding="16" materialDesign:ShadowAssist.ShadowDepth="Depth2" Mode="PrimaryDark" VerticalAlignment="Stretch" Grid.ColumnSpan="2" Margin="0,0,0,0.6" />
         <DataGrid x:Name="gridSongProperties" Margin="10,10.4,10,10.6" Grid.Row="1" AutoGenerateColumns="False" Grid.ColumnSpan="2">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Property Order" IsReadOnly="True" Binding="{Binding Path=.}" />
+                <DataGridTextColumn Header="Properties Order" IsReadOnly="True" Binding="{Binding Path=.}" Width="*" />
             </DataGrid.Columns>
             <DataGrid.ContextMenu>
                 <ContextMenu>
