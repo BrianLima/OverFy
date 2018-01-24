@@ -76,13 +76,15 @@
                 </materialDesign:Chip.Icon>
             </materialDesign:Chip>
         </Grid>
-        <Grid HorizontalAlignment="Left" Height="230" Margin="10,9.4,0,0" Grid.Row="1" VerticalAlignment="Top" Width="242">
+        <Grid x:Name="gridSettings" HorizontalAlignment="Left" Height="230" Margin="10,9.4,0,0" Grid.Row="1" VerticalAlignment="Top" Width="242">
             <materialDesign:ColorZone Padding="16" materialDesign:ShadowAssist.ShadowDepth="Depth2" Mode="PrimaryMid" VerticalAlignment="Top" Height="27" Grid.ColumnSpan="3" Margin="0,0,-0.2,0">
                 <Label  Content="Settings" HorizontalAlignment="Left" Margin="-10,-15,0,-17" VerticalAlignment="Top" FontFamily="Segoe UI Semibold" FontSize="14" Height="32" Foreground="#DDFFFFFF"/>
             </materialDesign:ColorZone>
 
-            <ToggleButton x:Name="autostart_toggle"  IsChecked="{Binding .}" Style="{StaticResource MaterialDesignSwitchToggleButton}" VerticalAlignment="Top" Margin="0,32,1,0" ToolTip="MaterialDesignSwitchToggleButton" Height="26" HorizontalAlignment="Right" Width="46" Checked="autostart_toggle_Checked" Unchecked="autostart_toggle_Unchecked" />
+            <ToggleButton x:Name="autostart_toggle" IsChecked="{Binding AutoStart}" Style="{StaticResource MaterialDesignSwitchToggleButton}" VerticalAlignment="Top" Margin="0,32,1,0" ToolTip="MaterialDesignSwitchToggleButton" Height="26" HorizontalAlignment="Right" Width="46" Checked="autostart_toggle_Checked" Unchecked="autostart_toggle_Unchecked" />
             <Label Content="Auto start with Windows" HorizontalAlignment="Left" Margin="0,32,0,0" VerticalAlignment="Top"/>
+            <ToggleButton x:Name="darkmode_toggle" IsChecked="{Binding DarkMode}" Style="{StaticResource MaterialDesignSwitchToggleButton}" VerticalAlignment="Top" Margin="0,64,2,0" ToolTip="MaterialDesignSwitchToggleButton" Height="26" HorizontalAlignment="Right" Width="46" Checked="darkmode_toggle_Checked" Unchecked="darkmode_toggle_Checked" />
+            <Label Content="Dark Mode" HorizontalAlignment="Left" Margin="0,64,0,0" VerticalAlignment="Top"/>
 
 
         </Grid>

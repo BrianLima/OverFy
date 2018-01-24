@@ -1,10 +1,7 @@
 ﻿using Microsoft.Win32.TaskScheduler;
-using IWshRuntimeLibrary;
 using System;
-using System.Windows;
-using System.Text.RegularExpressions;
-using System.Windows.Input;
 using System.IO;
+using System.Windows;
 
 namespace OverFy
 {
@@ -19,7 +16,7 @@ namespace OverFy
         {
             InitializeComponent();
 
-            autostart_toggle.DataContext = App.appSettings.AutoStart;
+            gridSettings.DataContext = App.appSettings;
         }
 
         private void Chip_Click(object sender, RoutedEventArgs e)
@@ -84,6 +81,11 @@ namespace OverFy
         private void Chip_Click_1(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void darkmode_toggle_Checked(object sender, RoutedEventArgs e)
+        {
+            App.SetLightDarkMode();
         }
     }
 }

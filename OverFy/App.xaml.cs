@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MaterialDesignThemes.Wpf;
+using System;
 using System.Windows;
 
 namespace OverFy
@@ -8,14 +9,16 @@ namespace OverFy
     /// </summary>
     public partial class App : Application
     {
-        public SpotifyWorker work;
+        public SpotifyWorker worker;
         public static AppSettings appSettings;
         public bool autoStarted = false;
+        private static PaletteHelper paletteHelper;
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             appSettings = new AppSettings();
-            work = new SpotifyWorker();
+            worker = new SpotifyWorker();
+            paletteHelper = new PaletteHelper();
 
             var startArg = Environment.GetCommandLineArgs();
 
@@ -32,12 +35,12 @@ namespace OverFy
                 }
             }
 
-            work.Start();
+            worker.Start();
 
-            MainWindow window = new OverFy.MainWindow(work, appSettings);
-
+            MainWindow window = new MainWindow(worker, appSettings);
             TrayIcon icon = new TrayIcon(window);
-            //icon.Show();
+
+            SetLightDarkMode();
 
             if (!autoStarted)
             {
@@ -45,10 +48,16 @@ namespace OverFy
             }
         }
 
+        public static void SetLightDarkMode()
+        {
+            App.paletteHelper.SetLightDark(App.appSettings.DarkMode);
+        }
+
         private void Application_Exit(object sender, ExitEventArgs e)
         {
+            worker.Stop();
+
             SpotifyWorker.ClearScreen();
-            work.Stop();
             appSettings.Save();
         }
     }

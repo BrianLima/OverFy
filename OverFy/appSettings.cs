@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Specialized;
+﻿using System.Collections.Specialized;
 using System.ComponentModel;
 
 namespace OverFy
@@ -15,6 +14,7 @@ namespace OverFy
             this._show_system_time = Properties.Settings.Default.ShowSystemTime;
             this._properties_order = Properties.Settings.Default.PropertiesOrder;
             this._use_new_line = Properties.Settings.Default.UseNewLine;
+            this._dark_mode = Properties.Settings.Default.DarkMode;
 
             if (this._properties_order == null)
             {
@@ -48,6 +48,9 @@ namespace OverFy
                     break;
                 case "UseNewLine":
                     Properties.Settings.Default.UseNewLine = _use_new_line;
+                    break;
+                case "DarkMode":
+                    Properties.Settings.Default.DarkMode = _dark_mode;
                     break;
                 default:
                     break;
@@ -84,6 +87,14 @@ namespace OverFy
         {
             get { return _autostart; }
             set { _autostart = value; OnPropertyChanged("AutoStart"); }
+        }
+
+        private bool _dark_mode;
+
+        public bool DarkMode
+        {
+            get { return _dark_mode; }
+            set { _dark_mode = value; OnPropertyChanged("DarkMode"); }
         }
 
         private bool _use_new_line;

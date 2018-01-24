@@ -24,7 +24,9 @@
             <ComboBoxItem Content="Album Name" />
             <ComboBoxItem Content="Song Running Time" />
             <ComboBoxItem Content="Label" />
-            <ComboBoxItem Content="System Time" ToolTip="Shown on new line"/>
+            <ComboBoxItem Content="System Time 24H" ToolTip="Shown on new line"/>
+            <ComboBoxItem Content="System Time 12h" ToolTip="Shown on new line"/>
+            <ComboBoxItem Content="New Line" />
             <ComboBoxItem Content="Custom Property" />
         </ComboBox>
         <Label Content="Property Name:" HorizontalAlignment="Left" Margin="10,53,0,0" VerticalAlignment="Top" Grid.RowSpan="2"/>

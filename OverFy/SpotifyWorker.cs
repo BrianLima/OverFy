@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using SpotifyAPI.Local;
+using SpotifyAPI.Local.Models;
+using System;
+using System.Globalization;
 using System.Linq;
 using System.Text;
-using SpotifyAPI.Local;
-using SpotifyAPI.Local.Enums;
-using SpotifyAPI.Local.Models;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Globalization;
 
 namespace OverFy
 {
@@ -79,19 +77,20 @@ namespace OverFy
                         HookSpotify();
                     }
 
-                    var currentStatus = _spotify.GetStatus();
-                    StringBuilder result = GetSpotifyInfo(currentStatus);
+                    StringBuilder result = GetSpotifyInfo(_spotify.GetStatus());
 
                     RivaTuner.print(result.ToString());
 
-                    Task.Delay(1000, cancellationToken).Wait(cancellationToken);
+                    Task.Delay(500, cancellationToken).Wait(cancellationToken); //Wait half a second to write again
                 }
                 catch (OperationCanceledException)
                 {
+                    ClearScreen();
                     return;
                 }
                 catch
                 {
+                    ClearScreen();
                 }
             }
         }
@@ -107,23 +106,17 @@ namespace OverFy
         private StringBuilder GetSpotifyInfo(StatusResponse currentStatus)
         {
             StringBuilder result = new StringBuilder();
-
             string lastItem = String.Empty;
-
             bool skip = false;
 
-            if (!SpotifyLocalAPI.IsSpotifyRunning())
-            {
-                skip = true;
-            }
-            if (!SpotifyLocalAPI.IsSpotifyWebHelperRunning())
+            if (!SpotifyLocalAPI.IsSpotifyRunning()|| !SpotifyLocalAPI.IsSpotifyWebHelperRunning() || currentStatus == null)
             {
                 skip = true;
             }
 
             for (int i = App.appSettings.PropertiesOrder.Count - 1; i > 0; i--)
             {
-                if (App.appSettings.PropertiesOrder[i] != "System Time")
+                if (!App.appSettings.PropertiesOrder[i].Contains("System Time"))
                 {
                     lastItem = App.appSettings.PropertiesOrder[i];
                     break;
@@ -136,10 +129,13 @@ namespace OverFy
                 {
                     switch (item)
                     {
-                        case "System Time":
+                        case "System Time 12h":
+                            break;
+                        case "System Time 24h":
                             break;
                         case "Song Name":
-                            result.Append(NormalizeString(currentStatus.Track.TrackResource.Name)); //It is needed to normalize strings because some like ç can break rivatuner
+                            result.Append(NormalizeString(currentStatus.Track.TrackResource.Name)); 
+                            //We needed to normalize strings because some like ç can break rivatuner
                             break;
                         case "Artist Name":
                             result.Append(NormalizeString(currentStatus.Track.ArtistResource.Name));
@@ -154,6 +150,9 @@ namespace OverFy
                             break;
                         case "Label":
                             result.Append("Now Playing: ");
+                            break;
+                        case "New Line":
+                            result.Append(Environment.NewLine);
                             break;
                         default:
                             result.Append(item);
@@ -170,14 +169,21 @@ namespace OverFy
                 }
             }
 
-            if (App.appSettings.PropertiesOrder.Contains("System Time"))
+            if (App.appSettings.PropertiesOrder.Contains("System Time 12h") || App.appSettings.PropertiesOrder.Contains("System Time 24h"))
             {
                 if (!String.IsNullOrEmpty(result.ToString()))
                 {
                     result.AppendLine();
                 }
 
-                result.Append(DateTime.Now.ToString("HH:mm"));
+                if (App.appSettings.PropertiesOrder.Contains("System Time 24h"))
+                {
+                    result.Append(DateTime.Now.ToString("HH:mm"));
+                }
+                else
+                {
+                    result.Append(DateTime.Now.ToString("hh:mm tt"));
+                }
             }
 
             return result;
