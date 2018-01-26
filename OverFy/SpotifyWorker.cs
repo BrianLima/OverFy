@@ -1,6 +1,7 @@
 ﻿using SpotifyAPI.Local;
 using SpotifyAPI.Local.Models;
 using System;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -9,11 +10,29 @@ using System.Threading.Tasks;
 
 namespace OverFy
 {
-    public class SpotifyWorker
+    public class SpotifyWorker : INotifyPropertyChanged
     {
         private Thread _workerThread;
         private CancellationTokenSource _cancellationTokenSource;
         private static SpotifyLocalAPI _spotify;
+        private string _preview;
+
+        public string Preview
+        {
+            get { return _preview; }
+            set { _preview = value; NotifyPropertyChanged(); }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void NotifyPropertyChanged(String propertyName = "")
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
 
         bool running = false;
         bool spotifyHooked = false;
@@ -79,6 +98,8 @@ namespace OverFy
 
                     StringBuilder result = GetSpotifyInfo(_spotify.GetStatus());
 
+                    Preview = result.ToString();
+
                     RivaTuner.print(result.ToString());
 
                     Task.Delay(500, cancellationToken).Wait(cancellationToken); //Wait half a second to write again
@@ -109,7 +130,7 @@ namespace OverFy
             string lastItem = String.Empty;
             bool skip = false;
 
-            if (!SpotifyLocalAPI.IsSpotifyRunning()|| !SpotifyLocalAPI.IsSpotifyWebHelperRunning() || currentStatus == null)
+            if (!SpotifyLocalAPI.IsSpotifyRunning() || !SpotifyLocalAPI.IsSpotifyWebHelperRunning() || currentStatus == null)
             {
                 skip = true;
             }
@@ -134,7 +155,7 @@ namespace OverFy
                         case "System Time 24h":
                             break;
                         case "Song Name":
-                            result.Append(NormalizeString(currentStatus.Track.TrackResource.Name)); 
+                            result.Append(NormalizeString(currentStatus.Track.TrackResource.Name));
                             //We needed to normalize strings because some like ç can break rivatuner
                             break;
                         case "Artist Name":
@@ -162,7 +183,8 @@ namespace OverFy
                     if (result.ToString() != String.Empty &&
                         item != "Label" &&
                         item != lastItem &&
-                        item != "System Time")
+                        item != "System Time 24h" &&
+                        item != "System Time 12h")
                     {
                         result.Append(", ");
                     }
@@ -178,11 +200,11 @@ namespace OverFy
 
                 if (App.appSettings.PropertiesOrder.Contains("System Time 24h"))
                 {
-                    result.Append(DateTime.Now.ToString("HH:mm"));
+                    result.Append(DateTime.Now.ToString("HH:mm", CultureInfo.InvariantCulture));
                 }
                 else
                 {
-                    result.Append(DateTime.Now.ToString("hh:mm tt"));
+                    result.Append(DateTime.Now.ToString("hh:mm tt", CultureInfo.InvariantCulture));
                 }
             }
 

@@ -27,6 +27,7 @@ namespace OverFy
             }
 
             gridSongProperties.ItemsSource = listProperties;
+            textPreview.DataContext = work;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

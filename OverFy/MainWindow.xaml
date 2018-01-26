@@ -23,12 +23,15 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition/>
-            <RowDefinition Height="55.2"/>
+            <RowDefinition Height="37.2"/>
+            <RowDefinition Height="57.6"/>
         </Grid.RowDefinitions>
-        <materialDesign:ColorZone Padding="16" materialDesign:ShadowAssist.ShadowDepth="Depth2" Mode="PrimaryDark" VerticalAlignment="Stretch" Grid.ColumnSpan="2" Margin="0,0,0,0.6" />
-        <DataGrid x:Name="gridSongProperties" Margin="10,10.4,10,10.6" Grid.Row="1" AutoGenerateColumns="False" Grid.ColumnSpan="2">
+        <materialDesign:ColorZone Padding="16" materialDesign:ShadowAssist.ShadowDepth="Depth2" Mode="PrimaryDark" VerticalAlignment="Stretch" Grid.ColumnSpan="2" Margin="0,0,-0.4,0.6" >
+            <Label Content="OverFy" HorizontalAlignment="Left" Margin="-13,-12,0,-11.2" Foreground="#DDFFFFFF" FontSize="24"/>
+        </materialDesign:ColorZone>
+        <DataGrid x:Name="gridSongProperties" Margin="10,4.4,9.6,6" Grid.Row="1" AutoGenerateColumns="False" Grid.ColumnSpan="2" CanUserReorderColumns="False" >
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Properties Order" IsReadOnly="True" Binding="{Binding Path=.}" Width="*" />
+                <DataGridTextColumn Header="Properties Order" IsReadOnly="True" Binding="{Binding Path=.}" Width="*" CanUserReorder="False" CanUserSort="False" />
             </DataGrid.Columns>
             <DataGrid.ContextMenu>
                 <ContextMenu>
@@ -37,25 +40,27 @@
             </DataGrid.ContextMenu>
         </DataGrid>
         <Button Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                Margin="0,5,10,0" HorizontalAlignment="Right"
+                Margin="0,5,9.6,0" HorizontalAlignment="Right"
                 ToolTip="Settings/About" VerticalAlignment="Top" Click="Button_ShowSettings_Click" Grid.Column="1">
             <materialDesign:PackIcon Kind="InformationOutline" Height="24" Width="24" />
         </Button>
         <Button Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-            Margin="10,0,0,9.8" HorizontalAlignment="Left"
-            ToolTip="Move selected property down" VerticalAlignment="Bottom" Click="Button_MoveDown_Click" Grid.Row="2">
+            Margin="10,0,0,9.4" HorizontalAlignment="Left"
+            ToolTip="Move selected property down" VerticalAlignment="Bottom" Click="Button_MoveDown_Click" Grid.Row="3">
             <materialDesign:PackIcon Kind="ArrowDown" Height="24" Width="24" />
         </Button>
         <Button Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-            Margin="55,0,0,9.8" HorizontalAlignment="Left"
-            ToolTip="Move selected property up" VerticalAlignment="Bottom" Click="Button_MoveUp_Click" Grid.Row="2">
+            Margin="55,0,0,9.4" HorizontalAlignment="Left"
+            ToolTip="Move selected property up" VerticalAlignment="Bottom" Click="Button_MoveUp_Click" Grid.Row="3">
             <materialDesign:PackIcon Kind="ArrowUp" Height="24" Width="24" />
         </Button>
         <Button Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-            Margin="0,0,10,9.8" HorizontalAlignment="Right"
-            ToolTip="Add property" VerticalAlignment="Bottom" Click="Button_Add_Click" Grid.Row="2" Grid.Column="1">
+            Margin="0,0,9.6,9.4" HorizontalAlignment="Right"
+            ToolTip="Add property" VerticalAlignment="Bottom" Click="Button_Add_Click" Grid.Row="3" Grid.Column="1">
             <materialDesign:PackIcon Kind="Plus" Height="24" Width="24" />
         </Button>
-        <materialDesign:DialogHost x:Name="dialogHost" CloseOnClickAway="True" Grid.ColumnSpan="2" Margin="10,10,10,10.4" Grid.RowSpan="3"/>
+        <Label Content="Preview:" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="2" VerticalAlignment="Top" Height="31" Width="58"/>
+        <TextBlock x:Name="textPreview" Margin="68,2,9.6,2.8" Grid.Row="2" TextWrapping="NoWrap" Text="{Binding Path=Preview, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="2"/>
+        <!--<materialDesign:DialogHost x:Name="dialogHost" CloseOnClickAway="True" Grid.ColumnSpan="2" Margin="0,0,-0.4,0.4" Grid.RowSpan="4"/>-->
     </Grid>
 </Window>

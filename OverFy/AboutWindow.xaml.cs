@@ -48,12 +48,13 @@ namespace OverFy
             {
                 TaskDefinition td = ts.NewTask();
                 td.RegistrationInfo.Author = "Briano";
-                td.RegistrationInfo.Description = "OverFy Auto Run on Windows Startup";
+                td.RegistrationInfo.Description = "OverFy Auto Run on Windows Startup, administrator rights are neede because RivaTuner also needs it";
                 td.Principal.RunLevel = TaskRunLevel.Highest;
                 td.Principal.LogonType = TaskLogonType.InteractiveToken;
+                td.Settings.DisallowStartIfOnBatteries = false;
+                td.Settings.StopIfGoingOnBatteries = false;
                 td.Triggers.Add(new LogonTrigger() { });
-
-                td.Actions.Add(new ExecAction(localFile.FullName, "autostart" ,null));
+                td.Actions.Add(new ExecAction(localFile.FullName, "autostart", null));
 
                 ts.RootFolder.RegisterTaskDefinition(@"OverFy", td);
 
@@ -63,10 +64,7 @@ namespace OverFy
 
         private void autostart_toggle_Checked(object sender, RoutedEventArgs e)
         {
-            if (!App.appSettings.AutoStart)
-            {
-                SetAutoStart();
-            }
+            SetAutoStart();
         }
 
         private void autostart_toggle_Unchecked(object sender, RoutedEventArgs e)
