@@ -1,5 +1,5 @@
 # OverFy
-### Spotify overlay for Rivatuner Statistics Server
+### Spotify Status for Rivatuner Statistics Server Overlay
 
 ***
 
@@ -27,11 +27,11 @@ To use, simply [download the latest zip from the releases page](https://github.c
 
 Then, click at the plus button on the bottom right of the screen:
 
-![Main Window](Prints\MainWindow.png)
+![Main Window](Prints/MainWindow.png)
 
 Choose the property you want to be displayed on screen:
 
-![Property List](Prints\PropertyList.png)
+![Property List](Prints/PropertyList.png)
 
 Click on "Add", reorder the properties as you wish, and game on!
 
