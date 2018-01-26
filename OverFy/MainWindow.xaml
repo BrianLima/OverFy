@@ -61,6 +61,6 @@
         </Button>
         <Label Content="Preview:" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="2" VerticalAlignment="Top" Height="31" Width="58"/>
         <TextBlock x:Name="textPreview" Margin="68,2,9.6,2.8" Grid.Row="2" TextWrapping="NoWrap" Text="{Binding Path=Preview, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="2"/>
-        <!--<materialDesign:DialogHost x:Name="dialogHost" CloseOnClickAway="True" Grid.ColumnSpan="2" Margin="0,0,-0.4,0.4" Grid.RowSpan="4"/>-->
+        <materialDesign:DialogHost x:Name="dialogHost" CloseOnClickAway="True" Grid.ColumnSpan="2" Margin="0,0,-0.4,0.4" Grid.RowSpan="4"/>
     </Grid>
 </Window>
