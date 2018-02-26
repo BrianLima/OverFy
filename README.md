@@ -39,7 +39,7 @@ There is a Dark mode on the "About" section of the app and an "Auto Start" too.
 
 Unfortunately i still haven't found a way to force OverFy to write to the screen before or after Afterburner or [HWiNFO](https://www.hwinfo.com/download.php), from my tests, the order seems to be based on launch order.
 
-This is a FREE open source software licensed under the [MIT License](LICENSE), if you like my work, you can follow me on [Twitter](https://twitter.com/brianostorm) or pay me a coffee via [Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=9YPV3FHEFRAUQ) or [Bitcoin](https://blockchain.info/pt/address/174LnSVCdrX4CnVS84jom7by2hMBGvJobm) as it will fuel me while i develop other tools for you!
+This is a FREE open source software licensed under the [GPLv3 License](LICENSE), if you like my work, you can follow me on [Twitter](https://twitter.com/brianostorm) or pay me a coffee via [Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=9YPV3FHEFRAUQ) or [Bitcoin](https://blockchain.info/pt/address/174LnSVCdrX4CnVS84jom7by2hMBGvJobm) as it will fuel me while i develop other tools for you!
 
 Also, check my other projects:
 
