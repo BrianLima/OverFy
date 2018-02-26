@@ -21,7 +21,7 @@
             <ColumnDefinition Width="130*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="55"/>
             <RowDefinition/>
             <RowDefinition Height="37.2"/>
             <RowDefinition Height="57.6"/>
@@ -42,7 +42,7 @@
         <Button Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
                 Margin="0,5,9.6,0" HorizontalAlignment="Right"
                 ToolTip="Settings/About" VerticalAlignment="Top" Click="Button_ShowSettings_Click" Grid.Column="1">
-            <materialDesign:PackIcon Kind="InformationOutline" Height="24" Width="24" />
+            <materialDesign:PackIcon Kind="Settings" Height="24" Width="24" />
         </Button>
         <Button Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
             Margin="10,0,0,9.4" HorizontalAlignment="Left"

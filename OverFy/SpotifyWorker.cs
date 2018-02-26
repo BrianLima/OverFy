@@ -99,8 +99,14 @@ namespace OverFy
                     StringBuilder result = GetSpotifyInfo(_spotify.GetStatus());
 
                     Preview = result.ToString();
-
-                    RivaTuner.print(result.ToString());
+                    try
+                    {
+                        RivaTuner.print(result.ToString());
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
 
                     Task.Delay(500, cancellationToken).Wait(cancellationToken); //Wait half a second to write again
                 }
