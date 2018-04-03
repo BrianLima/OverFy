@@ -18,7 +18,7 @@ namespace OverFy
 
             if (this._properties_order == null)
             {
-                _properties_order = new StringCollection();
+                _properties_order = new StringCollection() { "Label", "Song Name", "Artist Name", "Song Running Time"};
             }
 
             //For some reason, if a null string is added to the list, the datatable will fail to bind values
