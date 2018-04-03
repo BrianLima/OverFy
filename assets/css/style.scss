@@ -6,6 +6,10 @@ $conifer: #7875e1;
 
 @import "{{ site.theme }}";
 
+header h1 {
+    color: #7875e1
+}
+
 h1, h3 {
     color: #7875e1
 }
