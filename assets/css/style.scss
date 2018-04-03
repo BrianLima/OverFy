@@ -1,14 +1,14 @@
 ---
 ---
 
-@import "{{ site.theme }}";
+$chelsea-cucumber:  #7875e1;
+$conifer: #7875e1;
 
-element {
-    color: #7875e1
-} 
+@import "{{ site.theme }}";
 
 h1, h3 {
     color: #7875e1
+    #90a959
 }
 
 header {
