@@ -3,7 +3,11 @@
 
 @import "{{ site.theme }}";
 
-h1, h3 {
+h1 {
+    color: #7875e1
+} 
+
+h3 {
     color: #7875e1
 }
 
