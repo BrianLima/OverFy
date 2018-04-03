@@ -86,6 +86,5 @@ namespace OverFy
 
         [DllImport("rivatuner", CallingConvention = CallingConvention.Cdecl)]
         public static extern bool print(string text);
-
     }
 }

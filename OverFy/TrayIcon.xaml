@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="NotifyIcon" Height="300" Width="300" FontFamily="Segoe UI Light" FontSize="14">
     <Grid>
-        <tb:TaskbarIcon ToolTipText="OverFy" x:Name="icon" TrayMouseDoubleClick="icon_TrayMouseDoubleClick">
+        <tb:TaskbarIcon ToolTipText="OverFy" x:Name="icon" TrayMouseDoubleClick="icon_TrayMouseDoubleClick" IconSource="overfy.ico">
             <!--IconSource="/HueHue;component/HueHue.ico"-->
             <tb:TaskbarIcon.ContextMenu>
                 <ContextMenu >
