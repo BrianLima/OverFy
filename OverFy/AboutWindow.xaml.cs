@@ -85,5 +85,10 @@ namespace OverFy
         {
             App.SetLightDarkMode();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/BrianLima/OverFy/blob/master/LICENSE");
+        }
     }
 }
