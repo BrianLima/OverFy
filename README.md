@@ -51,6 +51,7 @@ This software uses some other OSS libraries such as:
  - [TaskScheduler](https://github.com/dahall/taskscheduler)
  - [Json.NET](https://www.newtonsoft.com/json)
  - [MaterialDesignInXamlToolkit](https://github.com/ButchersBoy/MaterialDesignInXamlToolkit)
+ - [AdvancedInstaller](https://www.advancedinstaller.com/)
 
 It wouldn't be possible to build this withouth them.
 
