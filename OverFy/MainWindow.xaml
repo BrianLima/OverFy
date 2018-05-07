@@ -72,6 +72,12 @@
         </Button>
         <Label Content="Preview:" HorizontalAlignment="Left" Margin="10,0.2,0,0" Grid.Row="2" VerticalAlignment="Top" Height="37" Width="58"/>
         <TextBlock x:Name="textPreview" Margin="68,2,9.6,2.8" Grid.Row="2" TextWrapping="NoWrap" Text="{Binding Path=Preview, UpdateSourceTrigger=PropertyChanged}" Grid.ColumnSpan="2"/>
+        <Label Content="Spotify:" HorizontalAlignment="Right" Margin="0,2.2,246.6,0" VerticalAlignment="Top" Height="27" Grid.Row="3" Grid.ColumnSpan="2"/>
+        <Label Content="RTSS:" HorizontalAlignment="Right" Margin="0,30.2,0.4,0" VerticalAlignment="Top" Height="27" Grid.Row="3"/>
+        <Grid Grid.ColumnSpan="2" Margin="246,3.2,54.6,1.4" Grid.Row="3" x:Name="gridStatus">
+            <Label Content="{Binding SpotifyStatus}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="69"/>
+            <Label Content="{Binding RTSSStatus}" HorizontalAlignment="Left" Margin="0,26,0,0" VerticalAlignment="Top" Width="69"/>
+        </Grid>
         <materialDesign:DialogHost x:Name="dialogHost" CloseOnClickAway="True" Grid.ColumnSpan="2" Margin="0,0,-0.4,0.4" Grid.RowSpan="4"/>
     </Grid>
 </Window>

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace OverFy
 {
@@ -15,6 +16,25 @@ namespace OverFy
         private Thread _workerThread;
         private CancellationTokenSource _cancellationTokenSource;
         private static SpotifyLocalAPI _spotify;
+        bool running = false;
+        public bool spotifyHooked = false;
+
+        private string _spotify_status;
+
+        public string SpotifyStatus
+        {
+            get { return _spotify_status; }
+            set { _spotify_status = value; }
+        }
+
+        private string _rtss_status;
+
+        public string RTSSStatus
+        {
+            get { return _rtss_status; }
+            private set { _rtss_status = value; }
+        }
+
         private string _preview;
 
         public string Preview
@@ -34,9 +54,6 @@ namespace OverFy
             }
         }
 
-        bool running = false;
-        bool spotifyHooked = false;
-
         public SpotifyWorker()
         {
             HookSpotify();
@@ -44,6 +61,7 @@ namespace OverFy
 
         private void HookSpotify()
         {
+            _spotify_status = "Not hooked";
             _spotify = new SpotifyLocalAPI();
             if (!SpotifyLocalAPI.IsSpotifyRunning())
                 return; //Make sure the spotify client is running
@@ -54,6 +72,7 @@ namespace OverFy
                 return; //We need to call Connect before fetching infos, this will handle Auth stuff
 
             spotifyHooked = true;
+            _spotify_status = "Ok";
         }
 
         public void Start()
@@ -63,7 +82,7 @@ namespace OverFy
             _cancellationTokenSource = new CancellationTokenSource();
             _workerThread = new Thread(BackgroundWorker_DoWork)
             {
-                Name = "OverFly",
+                Name = "OverFy",
                 IsBackground = true
             };
             _workerThread.Start(_cancellationTokenSource.Token);
@@ -101,7 +120,14 @@ namespace OverFy
                     Preview = result.ToString();
                     try
                     {
-                        RivaTuner.print(result.ToString());
+                        if (RivaTuner.print(result.ToString()))
+                        {
+                            _rtss_status = "Ok";
+                        }
+                        else
+                        {
+                            _rtss_status = "Not Ok";
+                        }
                     }
                     catch (Exception)
                     {
@@ -139,6 +165,7 @@ namespace OverFy
             if (!SpotifyLocalAPI.IsSpotifyRunning() || !SpotifyLocalAPI.IsSpotifyWebHelperRunning() || currentStatus == null)
             {
                 skip = true;
+                spotifyHooked = false;
             }
 
             for (int i = App.appSettings.PropertiesOrder.Count - 1; i > 0; i--)
