@@ -54,6 +54,8 @@ This software uses some other OSS libraries such as:
  - [MaterialDesignInXamlToolkit](https://github.com/ButchersBoy/MaterialDesignInXamlToolkit)
  - [AdvancedInstaller](https://www.advancedinstaller.com/)
 
+Huge thanks to [AvancedInstaller](https://www.advancedinstaller.com/) for providing a good and very useful Installer.
+
 It wouldn't be possible to build this withouth them.
 
 Also, check my other projects:
