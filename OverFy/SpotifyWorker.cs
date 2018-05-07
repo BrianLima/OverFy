@@ -18,6 +18,8 @@ namespace OverFy
         private static SpotifyLocalAPI _spotify;
         bool running = false;
         public bool spotifyHooked = false;
+        short btcHitTimer = 100; //Count how many times the timer has ticked, when 100, allow downloading the current BTC Price
+        string btcCache;
 
         private string _spotify_status;
 
@@ -141,7 +143,7 @@ namespace OverFy
                     ClearScreen();
                     return;
                 }
-                catch
+                catch (Exception ex)
                 {
                     ClearScreen();
                 }
@@ -161,6 +163,8 @@ namespace OverFy
             StringBuilder result = new StringBuilder();
             string lastItem = String.Empty;
             bool skip = false;
+            bool addBtc = false;
+            string currency = "USD";
 
             if (!SpotifyLocalAPI.IsSpotifyRunning() || !SpotifyLocalAPI.IsSpotifyWebHelperRunning() || currentStatus == null)
             {
@@ -168,12 +172,22 @@ namespace OverFy
                 spotifyHooked = false;
             }
 
+            //Check thelast item that isn`t written on a new row by default
             for (int i = App.appSettings.PropertiesOrder.Count - 1; i > 0; i--)
             {
-                if (!App.appSettings.PropertiesOrder[i].Contains("System Time"))
+                if (!App.appSettings.PropertiesOrder[i].Contains("System Time") && !App.appSettings.PropertiesOrder[i].StartsWith("BTC"))
                 {
                     lastItem = App.appSettings.PropertiesOrder[i];
                     break;
+                }
+            }
+
+            foreach (var item in App.appSettings.PropertiesOrder)
+            {
+                if (item.Contains("BTC"))
+                {
+                    currency = item.Split('/')[1];
+                    addBtc = true;
                 }
             }
 
@@ -209,7 +223,10 @@ namespace OverFy
                             result.Append(Environment.NewLine);
                             break;
                         default:
-                            result.Append(item);
+                            if (!item.Contains("BTC"))
+                            {
+                                result.Append(item);
+                            }
                             break;
                     }
 
@@ -217,7 +234,8 @@ namespace OverFy
                         item != "Label" &&
                         item != lastItem &&
                         item != "System Time 24h" &&
-                        item != "System Time 12h")
+                        item != "System Time 12h" &&
+                        !item.Contains("BTC"))
                     {
                         result.Append(", ");
                     }
@@ -239,6 +257,28 @@ namespace OverFy
                 {
                     result.Append(DateTime.Now.ToString("hh:mm tt", CultureInfo.InvariantCulture));
                 }
+            }
+
+            if (addBtc )
+            {
+                if (!String.IsNullOrEmpty(result.ToString()))
+                {
+                    result.AppendLine();
+                }
+                if (btcHitTimer >= 100)
+                {
+                    btcCache = BtcChecker.GetPrice(currency);
+                }
+                result.Append(btcCache);
+            }
+
+            if (btcHitTimer >= 100)
+            {
+                btcHitTimer = 0;
+            }
+            else
+            {
+                btcHitTimer++;
             }
 
             return result;

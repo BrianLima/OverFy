@@ -26,7 +26,7 @@
             <Label Content="New Property" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Foreground="#DDFFFFFF"/>
         </materialDesign:ColorZone>
         <Button Content="Add" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="75" Click="Button_Click" Grid.Row="1" Grid.Column="1"/>
-        <ComboBox Margin="4.4,51,10,0" VerticalAlignment="Top" x:Name="comboProperty" Grid.RowSpan="2" Grid.Column="1">
+        <ComboBox Margin="4.4,51,10,0" VerticalAlignment="Top" x:Name="comboProperty" Grid.RowSpan="2" Grid.Column="1" SelectionChanged="comboProperty_SelectionChanged">
             <ComboBoxItem Content="Song Name" />
             <ComboBoxItem Content="Artist Name" />
             <ComboBoxItem Content="Album Name" />
@@ -36,9 +36,34 @@
             <ComboBoxItem Content="System Time 12h" ToolTip="Shown on new line"/>
             <ComboBoxItem Content="New Line" />
             <ComboBoxItem Content="Custom Property" />
+            <ComboBoxItem Content="Bitcoin Price" />
         </ComboBox>
         <Label Content="Property Name:" HorizontalAlignment="Left" Margin="10,53,0,0" VerticalAlignment="Top" Grid.RowSpan="2"/>
-        <TextBox x:Name="CustomValue" Height="23" Margin="4.4,29.8,10,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Grid.Row="1" Grid.Column="1"/>
-        <Label Content="Custom Value:" HorizontalAlignment="Left" Margin="18,26.8,0,0" VerticalAlignment="Top" Grid.Row="1"/>
+        <TextBox x:Name="tbxCustomValue" Height="23" Margin="4.4,29.8,10,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Grid.Row="1" Grid.Column="1" Visibility="Collapsed"/>
+        <Label x:Name="labelCustomValue" Content="Custom Value:" HorizontalAlignment="Left" Margin="18,26.8,0,0" VerticalAlignment="Top" Grid.Row="1" Visibility="Collapsed"/>
+        <ComboBox Margin="4.4,56.8,10,0" SelectedIndex="0" VerticalAlignment="Top" x:Name="comboCurrency" Grid.Column="1" Grid.Row="1" Visibility="Collapsed">
+            <ComboBoxItem Content="USD"/>
+            <ComboBoxItem Content="JPY"/>
+            <ComboBoxItem Content="CNY"/>
+            <ComboBoxItem Content="SGD"/>
+            <ComboBoxItem Content="HKD"/>
+            <ComboBoxItem Content="CAD"/>
+            <ComboBoxItem Content="NZD"/>
+            <ComboBoxItem Content="AUD"/>
+            <ComboBoxItem Content="CLP"/>
+            <ComboBoxItem Content="GBP"/>
+            <ComboBoxItem Content="DKK"/>
+            <ComboBoxItem Content="SEK"/>
+            <ComboBoxItem Content="ISK"/>
+            <ComboBoxItem Content="CHF"/>
+            <ComboBoxItem Content="BRL"/>
+            <ComboBoxItem Content="EUR"/>
+            <ComboBoxItem Content="RUB"/>
+            <ComboBoxItem Content="PLN"/>
+            <ComboBoxItem Content="THB"/>
+            <ComboBoxItem Content="KRW"/>
+            <ComboBoxItem Content="TWD"/>
+        </ComboBox>
+        <Label x:Name="labelCurrency" Content="Currency:" HorizontalAlignment="Left" Margin="36,58.8,0,0" VerticalAlignment="Top" Grid.Row="1" Visibility="Collapsed"/>
     </Grid>
 </UserControl>

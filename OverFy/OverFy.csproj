@@ -104,6 +104,7 @@
       <DependentUpon>AddPropertyView.xaml</DependentUpon>
     </Compile>
     <Compile Include="AppSettings.cs" />
+    <Compile Include="BtcChecker.cs" />
     <Compile Include="RivaTuner.cs" />
     <Compile Include="SpotifyWorker.cs" />
     <Compile Include="TrayIcon.xaml.cs">
