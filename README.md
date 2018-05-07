@@ -14,10 +14,11 @@ This app **NEEDS** [RivaTuner Statistics Server](http://www.guru3d.com/files-det
 It features many properties to be displayed into your overlay while you play your games, including:
 - Song Title
 - Artist Name
-- Album Name 
+- Album Name
 - Current Song Running Time
 - System Time in 12 or 24 Hour Format
 - Customizable Labels
+- Current Bitcoin Price in 21 different currencies
 
 And more could be added if needed, drop by our issues or send me a DM on Reddit if you have any ideas.
 
