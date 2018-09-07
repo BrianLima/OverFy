@@ -9,6 +9,7 @@ namespace OverFy
     /// </summary>
     public partial class App : Application
     {
+        public static Keys keys;
         public SpotifyWorker worker;
         public static AppSettings appSettings;
         public bool autoStarted = false;
@@ -17,6 +18,14 @@ namespace OverFy
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             appSettings = new AppSettings();
+            keys = Keys.LoadKeys();
+
+            if (keys.u == null)
+            {
+                AuthorizeSpotify w = new AuthorizeSpotify();
+                w.ShowDialog();
+            }
+
             worker = new SpotifyWorker();
             paletteHelper = new PaletteHelper();
 
