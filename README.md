@@ -1,3 +1,8 @@
+**ON HOLD**
+
+Spotify changed their API's completely, i plan to rewrite the app soon™, but it will need a complete overhaul.
+
+
 ![Application Logo](OverFy/Resource/banner.png)
 ### Spotify Status for Rivatuner Statistics Server Overlay
 
