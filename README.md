@@ -9,7 +9,7 @@ Welcome to OverFy, a simple way to add information about the song you are listen
 
 > Application UI is subject to changes, but overall functionality should remain the same.
 
-This app **NEEDS** [RivaTuner Statistics Server](http://www.guru3d.com/files-details/rtss-rivatuner-statistics-server-download.html) or [MSI Afterburner](https://www.msi.com/page/afterburner) and [Spotify Desktop](https://www.spotify.com/br/download/windows/) in order to work correctly.
+This app **NEEDS** [RivaTuner Statistics Server](https://rivatuner.com/) and [Spotify Desktop](https://www.spotify.com/br/download/windows/) in order to work correctly.
 
 It features many properties to be displayed into your overlay while you play your games, including:
 - Song Title
